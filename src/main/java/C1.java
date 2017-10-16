@@ -1,6 +1,12 @@
+
+import org.apache.logging.log4j.*;
+
+
 public class C1 implements Command {
 
+    private static final Logger logger = LogManager.getLogger(C1.class.getName());
+
     public void execute() {
-        System.out.println("esto es c1");
+        logger.debug("Esto es c1");
     }
 }

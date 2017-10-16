@@ -1,8 +1,11 @@
 import java.util.HashMap;
+import org.apache.logging.log4j.*;
 
 public class Factory {
     HashMap<String, Command> mapa;
     private static Factory factory = null;
+    private static final Logger logger = LogManager.getLogger(Factory.class.getName());
+
 
 
     private Factory(){
@@ -35,7 +38,27 @@ public class Factory {
 
     private Command loadClass(String pCommand) {
 
-        return new C1();
+        Command com = null;
+        try {
+            Class clas = Class.forName(pCommand);
+            com = (Command)clas.newInstance();
+
+
+        }
+        catch(ClassNotFoundException e){
+
+            logger.error("no existeix");
+        }
+        catch(InstantiationException e){
+
+            logger.error("erooor");
+        }
+        catch(IllegalAccessException e){
+
+            logger.error("erooor");
+
+        }
+        return com;
     }
 
 }
