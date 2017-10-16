@@ -1,23 +1,41 @@
+import java.util.HashMap;
+
 public class Factory {
+    HashMap<String, Command> mapa;
+    private static Factory factory = null;
 
-    private static Factory factory;
 
-    private static Factory getInstance(){
+    private Factory(){
 
-        if(factory == null){
+        mapa= new HashMap<String, Command>();
 
-            factory = new Factory();
 
-        }
 
-        return factory;
 
     }
 
-    private Class getCommand(String class){
+    public static Factory getInstance(){
+        if(factory == null) {
+            factory = new Factory();
+        }
+        return factory;
+    }
 
+    public Command getCommand(String pCommand){
+        Command cmd = mapa.get(pCommand);
 
+        if(cmd == null) {
+            cmd = loadClass(pCommand);
+            mapa.put(pCommand, cmd);
+        }
 
+        return cmd;
+
+    }
+
+    private Command loadClass(String pCommand) {
+
+        return new C1();
     }
 
 }
